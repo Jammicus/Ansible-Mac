@@ -1,1 +1,41 @@
 ---
+
+- name: Check if Gradle is installed 
+  shell: ls {{ gradle_installation_dir }}/{{ gradle_download_filename }}
+  register: gradleInstalled
+  ignore_errors: true
+
+- name: Download Gradle
+  get_url:
+    url: "{{ gradle_download_url }}"
+    dest: "{{ gradle_download_dir }}"
+    mode: "u+rwx"
+  when: gradleInstalled.rc != 0
+   
+- name: Extract Gradle
+  shell: |
+    cd {{ gradle_download_dir }}
+    sudo unzip {{ gradle_download_filename }}.{{ gradle_download_filetype }} 
+    rm -rf {{ gradle_download_filename }}.{{ gradle_download_filetype }} 
+  when: gradleInstalled.rc != 0
+
+- name: Move Gradle
+  shell: |
+    rm -rf {{ gradle_installation_dir }}/{{ gradle_extracted_filename }} | :
+    mv {{ gradle_download_dir }}/{{ gradle_extracted_filename }} {{ gradle_installation_dir }}
+  become: yes  
+  when: gradleInstalled.rc != 0
+
+- name: Add Gradle to ~/.bash_profile
+  lineinfile:
+    path: ~/.bash_profile
+    line: 'export PATH=$PATH:{{ gradle_installation_dir }}/{{ gradle_extracted_filename }}/bin'
+    create: yes 
+  when: gradleInstalled.rc != 0
+
+- name: Add gradle to ~/.bashrc
+  lineinfile:
+    path: ~/.bashrc
+    line: 'export PATH=$PATH:{{ gradle_installation_dir }}/{{ gradle_extracted_filename }}/bin'
+    create: yes 
+  when: gradleInstalled.rc != 0

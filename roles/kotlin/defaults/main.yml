@@ -1,0 +1,9 @@
+---
+
+kotlin_version: 1.2.71
+kotlin_download_filename: "kotlin-compiler-{{ kotlin_version }}-macos-x64"
+kotlin_download_filetype: "zip"
+kotlin_extracted_filename: "kotlinc"
+kotlin_download_url: "https://github.com/JetBrains/kotlin/releases/download/v{{ kotlin_version }}/kotlin-compiler-{{ kotlin_version }}-macos-x64.zip"
+kotlin_download_dir: /Users/{{ inventory_hostname }}/Downloads
+kotlin_installation_dir: /usr/local

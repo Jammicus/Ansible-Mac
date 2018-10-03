@@ -1,0 +1,12 @@
+---
+# SHA and Download links here: https://www.getpostman.com/apps#changelog-mac-app
+maven_version: 3.5.4
+maven_checksum_format: sha512
+maven_checksum_value: 2a803f578f341e164f6753e410413d16ab60fabe31dc491d1fe35c984a5cce696bc71f57757d4538fe7738be04065a216f3ebad4ef7e0ce1bb4c51bc36d6be86
+maven_download_filename: "apache-maven-{{ maven_version }}-bin"
+maven_download_filetype: "tar.gz"
+maven_extracted_filename: "apache-maven-{{ maven_version }}"
+maven_download_url: "http://apache.mirror.anlx.net/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz"
+maven_download_dir: /Users/{{ inventory_hostname }}/Downloads
+maven_installation_dir: /usr/local
+

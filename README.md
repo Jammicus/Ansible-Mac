@@ -2,6 +2,7 @@
 
 
 ## Requirements
+* Sudo permissions
 
 The following needs to be installed on the host:
 * XCode 
@@ -10,3 +11,16 @@ The following needs to be installed on the host:
 ## Playbooks
 
 ## Running
+
+## Testing
+
+To test the playbooks, a vagrant file has been specified. The following commands can be used:
+
+```
+# Create the machine and run Ansible:
+vagrant up
+# Run ansible on an already running machine:
+vagrant provision
+# Remove/kill the vagrant machine
+vagrant destroy --force
+```
