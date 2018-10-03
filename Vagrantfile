@@ -17,6 +17,8 @@ hostName="vagrant"
 			vb.customize ["modifyvm", :id, "--usb", "on"]
 			vb.customize ["modifyvm", :id, "--usbehci", "off"]
 			vb.customize [ "sharedfolder", "add", :id, "--name", hostName, "--hostpath", "/home/user/tmp/share", "--automount" ]
+			vb.customize [ "sharedfolder", "add", :id, "--name", hostName, "--hostpath", "/tmp", "--automount" ]
+
 		end
 	end
 	#
