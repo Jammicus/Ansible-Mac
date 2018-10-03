@@ -1,0 +1,28 @@
+---
+
+- name: Check if Postman is installed 
+  shell:  ls "{{ postman_installation_dir }}/{{ postman_unarchive_filename }}.{{ postman_unarchive_filetype }}"
+  register: postmanInstalled
+  ignore_errors: true
+
+- name: Download Postman
+  get_url:
+    url: "{{ postman_download_url }}"
+    dest: "{{ postman_download_dir }}/{{ postman_download_filename }}.{{ postman_download_filetype }}"
+    mode: "u+rwx"
+    checksum: "{{ postman_checksum_format }}:{{ postman_checksum_value }}"
+  when: postmanInstalled.rc != 0
+   
+- name: Extract Postman
+  shell: |
+    cd {{ postman_download_dir }}
+    sudo unzip {{ postman_download_filename }}.{{ postman_download_filetype }} 
+    rm -rf {{ postman_download_filename }}.{{ postman_download_filetype }}
+  when: postmanInstalled.rc != 0
+
+- name: Move Postman
+  shell: |
+    rm -rf "{{ postman_installation_dir }}/{{ postman_unarchive_filename }}.{{ postman_unarchive_filetype }}"| :
+    mv "{{ postman_download_dir }}/{{ postman_unarchive_filename }}.{{ postman_unarchive_filetype }}" "{{ postman_installation_dir }}/{{ postman_unarchive_filename }}.{{ postman_unarchive_filetype }}"
+  become: yes  
+  when: postmanInstalled.rc != 0

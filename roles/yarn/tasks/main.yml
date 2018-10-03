@@ -1,0 +1,40 @@
+---
+- name: Check if Yarn is installed 
+  shell: source ~/.bash_profile; command -v yarn
+  register: yarnInstalled
+  ignore_errors: true
+
+- name: Download Yarn
+  get_url:
+    url: "{{ yarn_download_url }}"
+    dest: "{{ yarn_download_dir }}/{{ yarn_download_filename }}.{{ yarn_download_filetype }}"
+    mode: "u+rwx"
+  when: yarnInstalled.rc != 0
+   
+- name: Extract Yarn
+  shell: |
+    cd {{ yarn_download_dir }}
+    sudo tar -xzf {{ yarn_download_filename }}.{{ yarn_download_filetype }} 
+    rm -rf yarn-{{ yarn_version }}.{{ yarn_download_filetype }}
+  when: yarnInstalled.rc != 0
+
+- name: Move Yarn
+  shell: |
+    rm -rf {{ yarn_installation_dir }}/{{ yarn_download_filename }} | :
+    mv {{ yarn_download_dir }}/{{ yarn_download_filename }} {{ yarn_installation_dir }}
+  become: yes  
+  when: yarnInstalled.rc != 0
+
+- name: Add Yarn to ~/.bash_profile
+  lineinfile:
+    path: ~/.bash_profile
+    line: 'export PATH=$PATH:{{ yarn_installation_dir }}/{{ yarn_download_filename }}/bin'
+    create: yes 
+  when: yarnInstalled.rc != 0
+
+- name: Add Yarn to ~/.bashrc
+  lineinfile:
+    path: ~/.bashrc
+    line: 'export PATH=$PATH:{{ yarn_installation_dir }}/{{ yarn_download_filename }}/bin'
+    create: yes  
+  when: yarnInstalled.rc != 0

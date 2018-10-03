@@ -1,0 +1,9 @@
+---
+# https://releases.hashicorp.com/packer/
+terraform_version: 0.11.8
+terraform_download_filename: "terraform_{{ packer_version }}_darwin_386"
+terraform_download_filetype: "zip"
+terraform_download_url: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_darwin_amd64"
+terraform_download_dir: /Users/{{ inventory_hostname }}/Downloads
+terraform_installation_dir: "/usr/local/bin"
+terraform_unarchive_filename: 'terraform'

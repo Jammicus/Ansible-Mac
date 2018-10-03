@@ -1,0 +1,9 @@
+---
+## Frontend
+- name: Install Frontend roles
+  hosts: all
+  roles:
+    - node
+    - yarn
+    - visualStudioCode
+    - postman

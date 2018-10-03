@@ -1,0 +1,21 @@
+---
+# Hacky role for testing. You should not use this!
+
+- name: Check if Command Line Tools are installed 
+  shell: command -v make
+  register: commandLineToolsInstalled
+  ignore_errors: true
+
+# See: https://gist.github.com/mokagio/b974620ee8dcf5c0671f
+- name: Install Command Line tools
+  shell: |
+  shell: |
+    touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
+    PROD=$(softwareupdate -l |
+      grep "\*.*Command Line" |
+      head -n 1 | awk -F"*" '{print $2}' |
+      sed -e 's/^ *//' |
+      tr -d '\n')
+    softwareupdate -i "$PROD" --verbose;
+  when: commandLineToolsInstalled.rc != 0
+

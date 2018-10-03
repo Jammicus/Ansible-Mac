@@ -1,0 +1,9 @@
+---
+- name: Check if brew is installed
+  shell: ls /usr/local/bin/brew
+  register: brewInstalled
+  ignore_errors: true
+
+- name: Install homebrew
+  shell: echo | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  when: brewInstalled.rc != 0

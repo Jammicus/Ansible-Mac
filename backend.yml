@@ -1,0 +1,8 @@
+---
+## Backend
+- name: Install Backend roles
+  hosts: all
+  roles:
+    - java
+    - kotlin
+    - maven

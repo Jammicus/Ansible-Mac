@@ -1,0 +1,26 @@
+---
+- name: Check if VSCode is installed 
+  shell: ls '{{ vscode_installation_dir }}/{{ vscode_unarchive_filename }}.{{ vscode_unarchive_filetype }}'
+  register: vscodeInstalled
+  ignore_errors: true
+
+- name: Download VSCode
+  get_url:
+    url: "{{ vscode_download_url }}"
+    dest: "{{ vscode_download_dir }}/{{ vscode_download_filename }}.{{ vscode_download_filetype }}"
+    mode: "u+rwx"
+  when: vscodeInstalled.rc != 0
+   
+- name: Extract VSCode
+  shell: |
+    cd {{ vscode_download_dir }}
+    sudo unzip {{ vscode_download_filename }}.{{ vscode_download_filetype }} 
+    rm -rf {{ vscode_download_filename }}.{{ vscode_download_filetype }}
+  when: vscodeInstalled.rc != 0
+
+- name: Move VSCode
+  shell: |
+    rm -rf "{{ vscode_installation_dir }}/{{ vscode_unarchive_filename }}.{{ vscode_unarchive_filetype }}"| :
+    mv "{{ vscode_download_dir }}/{{ vscode_unarchive_filename }}.{{ vscode_unarchive_filetype }}" "{{ vscode_installation_dir }}/{{ vscode_unarchive_filename }}.{{ vscode_unarchive_filetype }}"
+  become: yes  
+  when: vscodeInstalled.rc != 0

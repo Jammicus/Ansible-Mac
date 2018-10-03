@@ -1,0 +1,43 @@
+---
+
+- name: Check if terraform is installed 
+  shell: ls /usr/local/bin/terraform
+  register: terraformInstalled
+  ignore_errors: true
+
+- name: Download terraform
+  get_url:
+    url: "{{ terraform_download_url }}.{{ terraform_download_filetype }}"
+    dest: "{{ terraform_download_dir }}/{{ terraform_download_filename }}.{{ terraform_download_filetype }}"
+    mode: "u+rwx"
+  when: terraformInstalled.rc != 0
+   
+- name: Extract terraform
+  shell: |
+    cd {{ terraform_download_dir }}
+    sudo unzip {{ terraform_download_filename }}.{{ terraform_download_filetype }} 
+    rm -rf {{ terraform_download_filename }}.{{ terraform_download_filetype }}
+  when: terraformInstalled.rc != 0
+
+- name: Move terraform
+  shell: |
+    rm -rf "{{ terraform_installation_dir }}/{{ terraform_unarchive_filename }}" | :
+    mv "{{ terraform_download_dir }}/{{ terraform_unarchive_filename }}" "{{ terraform_installation_dir }}/{{ terraform_unarchive_filename }}"
+    chmod +rwx "{{ terraform_installation_dir }}/{{ terraform_unarchive_filename }}"
+  become: yes  
+  when: terraformInstalled.rc != 0
+
+
+- name: Add terraform to ~/.bash_profile
+  lineinfile:
+    path: ~/.bash_profile
+    line: 'export PATH="$PATH:{{ terraform_installation_dir }}/{{ terraform_unarchive_filename }}"'
+    create: yes 
+  when: terraformInstalled.rc != 0
+
+- name: Add terraform to ~/.bashrc
+  lineinfile:
+    path: ~/.bashrc
+    line: 'export PATH="$PATH:{{ terraform_installation_dir }}/{{ terraform_unarchive_filename }}"'
+    create: yes  
+  when: terraformInstalled.rc != 0

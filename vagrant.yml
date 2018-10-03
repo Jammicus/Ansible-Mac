@@ -1,0 +1,6 @@
+---
+## Install vagrant specific packages
+- name: Install Vagrant
+  hosts: all
+  roles:
+    - commandLineTools  

@@ -1,0 +1,7 @@
+---
+## Common
+- name: Install Common
+  hosts: all
+  roles:
+    - homebrew
+

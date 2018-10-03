@@ -1,0 +1,11 @@
+---
+## devops
+- name: Install Devops roles
+  hosts: all
+  roles:
+    - packer
+    - terraform
+    - docker
+    - ansible
+    - vagrant
+    - virtualbox

@@ -1,0 +1,11 @@
+---
+#https://vscode-update.azurewebsites.net/1.3.0/darwin/stable
+
+vscode_version: 1.3.0
+vscode_download_filename: "VSCode-darwin-stable"
+vscode_download_filetype: "zip"
+vscode_download_url: "https://vscode-update.azurewebsites.net/{{ vscode_version }}/darwin/stable"
+vscode_download_dir: /Users/{{ inventory_hostname }}/Downloads
+vscode_installation_dir: /Applications
+vscode_unarchive_filename: "Visual Studio Code"
+vscode_unarchive_filetype: "app"
