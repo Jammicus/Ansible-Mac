@@ -1,0 +1,5 @@
+---
+- task: install gnu-tar
+  homebrew:
+    name: "{{ gnutar_version }}"
+    state: present

@@ -7,3 +7,18 @@
 - name: Install homebrew
   shell: echo | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   when: brewInstalled.rc != 0
+
+
+- name: Prevent Homebrew from updating by updating ~/.bash_profile
+  lineinfile:
+    path: ~/.bash_profile
+    line: 'export HOMEBREW_NO_AUTO_UPDATE=1'
+    create: yes 
+  when: brewInstalled.rc != 0
+
+- name: Prevent Homebrew from updating by updating ~/.bashrc
+  lineinfile:
+    path: ~/.bashrc
+    line: 'export HOMEBREW_NO_AUTO_UPDATE=1'
+    create: yes  
+  when: brewInstalled.rc != 0  

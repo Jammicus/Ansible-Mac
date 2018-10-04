@@ -1,0 +1,5 @@
+---
+- task: install openssl
+  homebrew:
+    name: "{{ openssl_version }}"
+    state: present

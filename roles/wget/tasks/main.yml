@@ -1,0 +1,6 @@
+---
+
+- task: install wget 
+  homebrew:
+    name: "{{ wget_version }}"
+    state: present

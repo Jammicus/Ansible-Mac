@@ -41,6 +41,15 @@ hostName="vagrant"
 	end
 
 	config.vm.provision "ansible" do |ansible|
+		ansible.playbook = "./platform.yml"
+		ansible.limit = "all"
+		ansible.verbose = "vv"
+		ansible.extra_vars = {
+			inventory_hostname: hostName
+		}
+	end
+
+	config.vm.provision "ansible" do |ansible|
 		ansible.playbook = "./frontend.yml"
 		ansible.limit = "all"
 		ansible.verbose = "vv"

@@ -1,0 +1,5 @@
+---
+- task: install doxygen
+  homebrew:
+    name: "{{ doxygen_version }}"
+    state: present

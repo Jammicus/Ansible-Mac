@@ -1,0 +1,5 @@
+---
+- task: install gnu-sed
+  homebrew:
+    name: "{{ gnused_version }}"
+    state: present
