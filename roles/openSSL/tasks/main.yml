@@ -3,3 +3,12 @@
   homebrew:
     name: "{{ openssl_version }}"
     state: present
+
+- task: Create Symlink
+  file:
+    src: /usr/bin/openssl
+    dest: /usr/local/ssl
+    state: link
+    force: yes
+  become: yes  
+  when: openssl_symlink

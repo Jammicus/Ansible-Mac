@@ -3,3 +3,19 @@
   homebrew:
     name: "{{ gnused_version }}"
     state: present
+
+- name: create symlink directory
+  file:
+    path: "/opt/local/bin"
+    state: directory
+    mode: 0777
+  become: yes
+  when: gnused_symlink
+
+- task: Create Symlink
+  file:
+    src: /usr/local/bin/gsed
+    dest: /opt/local/bin/gsed
+    state: link
+  become: yes
+  when: gnused_symlink

@@ -1,1 +1,2 @@
 gnutar_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/gnu-tar.rb
+gnutar_symlink: false

@@ -1,6 +1,6 @@
 ---
 - name: Check if Maven is installed 
-  shell: ls {{ maven_installation_dir }}/{{ maven_download_filename }}
+  shell: ls {{ maven_installation_dir }}/{{ maven_extracted_filename }}
   register: mavenInstalled
   ignore_errors: true
 
