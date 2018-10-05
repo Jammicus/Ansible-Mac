@@ -10,6 +10,32 @@ The following needs to be installed on the host:
 
 ## Playbooks
 
+| Playbook          | Default Install method| Brew Install option |
+| ----------------- | --------------------- | ------------------- |
+| Ansible           | Content Cell          |                     | 
+| CommandLineTools  | Content Cell          |                     | 
+| Doxygen           |                       |                     |
+| Gawk              |                       |                     |
+| Gnu-sed           |                       |                     |
+| Gnu-tar           |                       |                     |
+| Gradle            |                       |                     |
+| Homebrew          |                       |                     |
+| Java              |                       |                     |
+| Kotlin            |                       |                     |
+| Libiconv          |                       |                     |
+| Maven             |                       |                     |
+| NodeJs            |                       |                     |
+| OpenSSL           |                       |                     |
+| Packer            |                       |                     |
+| Pkgconfig         |                       |                     |
+| Postman           |                       |                     |
+| Python            |                       |                     |
+| Terraform         |                       |                     |
+| Ulimit            |                       |                     |
+| VisualStudioCode  |                       |                     |
+| Wget              |                       |                     |
+| Yarn              |                       |                     |  
+
 ## Running
 
 ## Updating Homebrew Versions

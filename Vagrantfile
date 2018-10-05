@@ -53,21 +53,21 @@ hostName="vagrant"
 		}
 	end
 
-	# config.vm.provision "ansible" do |ansible|
-	# 	ansible.playbook = "./frontend.yml"
-	# 	ansible.limit = "all"
-	# 	ansible.verbose = "vv"
-	# end
+	config.vm.provision "ansible" do |ansible|
+		ansible.playbook = "./frontend.yml"
+		ansible.limit = "all"
+		ansible.verbose = "vv"
+	end
 
-	# config.vm.provision "ansible" do |ansible|
-	# 	ansible.playbook = "./devops.yml"
-	# 	ansible.limit = "all"
-	# 	ansible.verbose = "vv"
-	# end
+	config.vm.provision "ansible" do |ansible|
+		ansible.playbook = "./devops.yml"
+		ansible.limit = "all"
+		ansible.verbose = "vv"
+	end
 
-	# config.vm.provision "ansible" do |ansible|
-	# 	ansible.playbook = "./backend.yml"
-	# 	ansible.limit = "all"
-	# 	ansible.verbose = "vv"
-	# end
+	config.vm.provision "ansible" do |ansible|
+		ansible.playbook = "./backend.yml"
+		ansible.limit = "all"
+		ansible.verbose = "vv"
+	end
 end
