@@ -2,14 +2,14 @@
 - name: Install Platform packages
   hosts: all
   roles:
-    # - wget
-    # - openssl
-    # - gnused
-    # - gnutar
-    # - doxygen
-    # - gawk
-    # - libiconv
-    # - java
+    - wget
+    - openssl
+    - gnused
+    - gnutar
+    - doxygen
+    - gawk
+    - libiconv
+    - java
     - maven
     - python
-    # - ulimit
+    - ulimit

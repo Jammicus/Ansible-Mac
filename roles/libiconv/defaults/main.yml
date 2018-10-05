@@ -1,1 +1,12 @@
-libiconv_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/libiconv.rb
+libiconv_homebrew_install: false
+libiconv_homebrew_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/libiconv.rb
+
+libiconv_version: 1.15
+libiconv_checksum_format: sha256
+libiconv_checksum_value: ccf536620a45458d26ba83887a983b96827001e92a13847b45e4925cc8913178
+libiconv_download_filename: "libiconv-{{ libiconv_version }}"
+libiconv_download_filetype: "tar.gz"
+libiconv_extracted_filename: "libiconv-{{ libiconv_version }}"
+libiconv_download_url: "https://ftp.gnu.org/gnu/libiconv/libiconv-{{ libiconv_version }}.{{ libiconv_download_filetype }}"
+libiconv_download_dir: /Users/{{ inventory_hostname }}/Downloads
+libiconv_installation_dir: /usr/local
