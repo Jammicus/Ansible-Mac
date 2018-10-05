@@ -3,3 +3,7 @@
   homebrew:
     name: "{{ libiconv_version }}"
     state: present
+
+- task: Link Libiconv
+  shell: |
+    /usr/local/bin/brew link --force libiconv 

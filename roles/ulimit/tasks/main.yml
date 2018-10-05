@@ -1,0 +1,19 @@
+---
+
+- name: Add ulimit settings to ~/.bash_profile
+  blockinfile:
+    path: ~/.bash_profile
+    block: |
+      ulimit -n {{ ulimit_max_file_descriptors }}
+      ulimit -u {{ ulimit_max_processes }}
+      ulimit -c {{ ulimit_max_corefiles }}
+    create: yes 
+
+- name: Add ulimit settings to ~/.bashrc
+  blockinfile:
+    path: ~/.bashrc
+    block: |
+      ulimit -n {{ ulimit_max_file_descriptors }}
+      ulimit -u {{ ulimit_max_processes }}
+      ulimit -c {{ ulimit_max_corefiles }}
+    create: yes  

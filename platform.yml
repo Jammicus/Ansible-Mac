@@ -11,3 +11,5 @@
     - libiconv
     - java
     - maven
+    - python
+    - ulimit

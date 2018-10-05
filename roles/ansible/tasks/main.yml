@@ -1,1 +1,6 @@
 ---
+- name: Install Ansible
+  pip: 
+    name: ansible
+    version: '{{ ansible_install_version }}'
+    executable: /usr/local/bin/pip3

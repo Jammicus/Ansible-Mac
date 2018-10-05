@@ -1,0 +1,3 @@
+python_two_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/python@2.rb
+python_three_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/python.rb
+install_python_two: false

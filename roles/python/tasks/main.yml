@@ -1,0 +1,11 @@
+---
+- task: install Python3 
+  homebrew:
+    name: "{{ python_three_version }}"
+    state: present
+
+- task: install Python2 
+  homebrew:
+    name: "{{ python_two_version }}"
+    state: present    
+  when: install_python_two  

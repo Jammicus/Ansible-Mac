@@ -49,6 +49,7 @@ hostName="vagrant"
 			gnused_symlink: true,
 			gnutar_symlink: true,
 			openssl_symlink: true,
+			install_python_two: true
 		}
 	end
 

@@ -1,0 +1,3 @@
+---
+# ansible_version is a variable set by ansible, we cannot use it!
+ansible_install_version: 2.6.5
