@@ -4,38 +4,44 @@
   register: mavenInstalled
   ignore_errors: true
 
+- task: install maven 
+  homebrew:
+    name: "{{ maven_version_homebrew }}"
+    state: present
+  when: maven_homebrew_install
+
 - name: Download Maven
   get_url:
     url: "{{ maven_download_url }}"
     dest: "{{ maven_download_dir }}"
     checksum: "{{ maven_checksum_format }}:{{ maven_checksum_value }}"
     mode: "u+rwx"
-  when: mavenInstalled.rc != 0
+  when: mavenInstalled.rc != 0 and not maven_homebrew_install
    
 - name: Extract Maven
   shell: |
     cd {{ maven_download_dir }}
     sudo tar -xzf {{ maven_download_filename }}.{{ maven_download_filetype }} 
     rm -rf {{ maven_download_filename }}.{{ maven_download_filetype }} 
-  when: mavenInstalled.rc != 0
+  when: mavenInstalled.rc != 0 and not maven_homebrew_install
 
 - name: Move Maven
   shell: |
     rm -rf {{ maven_installation_dir }}/{{ maven_extracted_filename }} | :
     mv {{ maven_download_dir }}/{{ maven_extracted_filename }} {{ maven_installation_dir }}
   become: yes  
-  when: mavenInstalled.rc != 0
+  when: mavenInstalled.rc != 0 and not maven_homebrew_install
 
 - name: Add Maven to ~/.bash_profile
   lineinfile:
     path: ~/.bash_profile
     line: 'export PATH=$PATH:{{ maven_installation_dir }}/{{ maven_extracted_filename }}/bin'
     create: yes 
-  when: mavenInstalled.rc != 0
+  when: mavenInstalled.rc != 0 and not maven_homebrew_install
 
 - name: Add Maven to ~/.bashrc
   lineinfile:
     path: ~/.bashrc
     line: 'export PATH=$PATH:{{ maven_installation_dir }}/{{ maven_extracted_filename }}/bin'
     create: yes 
-  when: mavenInstalled.rc != 0
+  when: mavenInstalled.rc != 0 and not maven_homebrew_install

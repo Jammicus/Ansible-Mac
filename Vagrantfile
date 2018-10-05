@@ -49,25 +49,28 @@ hostName="vagrant"
 			gnused_symlink: true,
 			gnutar_symlink: true,
 			openssl_symlink: true,
-			install_python_two: true
+			install_python_two: true,
+			python_two_homebrew_install: true,
+			python_three_homebrew_install: true,
+			maven_homebrew_install: true
 		}
 	end
 
-	config.vm.provision "ansible" do |ansible|
-		ansible.playbook = "./frontend.yml"
-		ansible.limit = "all"
-		ansible.verbose = "vv"
-	end
+	# config.vm.provision "ansible" do |ansible|
+	# 	ansible.playbook = "./frontend.yml"
+	# 	ansible.limit = "all"
+	# 	ansible.verbose = "vv"
+	# end
 
-	config.vm.provision "ansible" do |ansible|
-		ansible.playbook = "./devops.yml"
-		ansible.limit = "all"
-		ansible.verbose = "vv"
-	end
+	# config.vm.provision "ansible" do |ansible|
+	# 	ansible.playbook = "./devops.yml"
+	# 	ansible.limit = "all"
+	# 	ansible.verbose = "vv"
+	# end
 
-	config.vm.provision "ansible" do |ansible|
-		ansible.playbook = "./backend.yml"
-		ansible.limit = "all"
-		ansible.verbose = "vv"
-	end
+	# config.vm.provision "ansible" do |ansible|
+	# 	ansible.playbook = "./backend.yml"
+	# 	ansible.limit = "all"
+	# 	ansible.verbose = "vv"
+	# end
 end

@@ -10,31 +10,31 @@ The following needs to be installed on the host:
 
 ## Playbooks
 
-| Playbook          | Default Install method| Brew Install option |
-| ----------------- | --------------------- | ------------------- |
-| Ansible           | Content Cell          |                     | 
-| CommandLineTools  | Content Cell          |                     | 
-| Doxygen           |                       |                     |
-| Gawk              |                       |                     |
-| Gnu-sed           |                       |                     |
-| Gnu-tar           |                       |                     |
-| Gradle            |                       |                     |
-| Homebrew          |                       |                     |
-| Java              |                       |                     |
-| Kotlin            |                       |                     |
-| Libiconv          |                       |                     |
-| Maven             |                       |                     |
-| NodeJs            |                       |                     |
-| OpenSSL           |                       |                     |
-| Packer            |                       |                     |
-| Pkgconfig         |                       |                     |
-| Postman           |                       |                     |
-| Python            |                       |                     |
-| Terraform         |                       |                     |
-| Ulimit            |                       |                     |
-| VisualStudioCode  |                       |                     |
-| Wget              |                       |                     |
-| Yarn              |                       |                     |  
+| Playbook          | Default Install method| Brew Install option | Brew Install Override                                               |
+| ----------------- | --------------------- | ------------------- | ------------------------------------------------------------------- |
+| Ansible           | Pip                   | No                  |                                                                     |  
+| CommandLineTools  | Content Cell          |                     |                                                                     | 
+| Doxygen           |                       |                     |                                                                     |
+| Gawk              |                       |                     |                                                                     |
+| Gnu-sed           |                       |                     |                                                                     |
+| Gnu-tar           |                       |                     |                                                                     |
+| Gradle            |                       |                     |                                                                     |
+| Homebrew          |                       |                     |                                                                     |
+| Java              |                       |                     |                                                                     |
+| Kotlin            |                       |                     |                                                                     |
+| Libiconv          |                       |                     |                                                                     |
+| Maven             | Binary                | yes                 | maven_homebrew_install: true                                        |
+| NodeJs            |                       |                     |                                                                     |
+| OpenSSL           |                       |                     |                                                                     |
+| Packer            |                       |                     |                                                                     |
+| Pkgconfig         |                       |                     |                                                                     |
+| Postman           |                       |                     |                                                                     |
+| Python            | Binary (Both 2 and 3) | Yes                 | python_two_homebrew_install: true and python_three_homebrew_install |
+| Terraform         |                       |                     |                                                                     |
+| Ulimit            |                       |                     |                                                                     |
+| VisualStudioCode  |                       |                     |                                                                     |
+| Wget              |                       |                     |                                                                     |
+| Yarn              |                       |                     |                                                                     |
 
 ## Running
 

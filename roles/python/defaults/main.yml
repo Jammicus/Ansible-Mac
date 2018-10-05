@@ -1,3 +1,24 @@
-python_two_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/python@2.rb
-python_three_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/python.rb
+python_two_homebrew_install: false
 install_python_two: false
+
+python_two_version_homebrew: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/python@2.rb
+
+python_two_version: 2.7.15
+python_two_checksum_format: md5
+python_two_checksum_value: "223b71346316c3ec7a8dc8bff5476d84"
+python_two_download_filename: "python-{{ python_two_version }}-macosx10.9"
+python_two_download_filetype: "pkg"
+python_two_download_url: "https://www.python.org/ftp/python/{{ python_two_version }}/python-{{ python_two_version }}-macosx10.9.{{python_two_download_filetype}}"
+python_two_download_dir: /Users/{{ inventory_hostname }}/Downloads
+
+python_three_homebrew_install: false
+python_three_version_homebrew: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/python.rb
+
+
+python_three_version: 3.7.0
+python_three_checksum_format: md5
+python_three_checksum_value: "ae0717a02efea3b0eb34aadc680dc498"
+python_three_download_filename: "python-{{ python_three_version }}-macosx10.9"
+python_three_download_filetype: ".pkg"
+python_three_download_url: "https://www.python.org/ftp/python/{{ python_three_version }}/python-{{ python_three_version }}-macosx10.9.pkg"
+python_three_download_dir: /Users/{{ inventory_hostname }}/Downloads

@@ -1,11 +1,62 @@
 ---
+- name: Check if python is installed 
+  shell: ls /usr/bin/python
+  register: pythonInstalled
+  ignore_errors: true
+
+- name: Check if python3 is installed 
+  shell: ls /usr/local/bin/python3
+  register: pythonThreeInstalled
+  ignore_errors: true  
+
 - task: install Python3 
   homebrew:
-    name: "{{ python_three_version }}"
+    name: "{{ python_three_version_homebrew }}"
     state: present
+  when: python_three_homebrew_install
 
 - task: install Python2 
   homebrew:
-    name: "{{ python_two_version }}"
+    name: "{{ python_two_version_homebrew }}"
     state: present    
-  when: install_python_two  
+  when: (install_python_two and python_two_homebrew_install ) 
+
+- name: Download Python2
+  get_url:
+    url: "{{ python_two_download_url }}"
+    dest: "{{ python_two_download_dir }}/{{ python_two_download_filename }}.{{ python_two_download_filetype }}"
+    checksum: "{{ python_two_checksum_format }}:{{ python_two_checksum_value }}"
+    mode: "u+rwx"
+  when: (pythonInstalled.rc != 0 and install_python_two and not python_two_homebrew_install ) 
+   
+- name: Install Python 2
+  shell: |
+    installer -pkg "{{ python_two_download_dir }}/{{ python_two_download_filename }}.{{ python_two_download_filetype }}" -target /Volumes/Macintosh\ HD
+  when: (pythonInstalled.rc != 0 and install_python_two and not python_two_homebrew_install ) 
+  become: yes
+
+- name: Python 2 post install cleanup
+  file:
+    path: "{{ python_two_download_dir }}/{{ python_two_download_filename }}.{{ python_two_download_filetype }}"
+    state: absent 
+  when: (pythonInstalled.rc != 0 and install_python_two and not python_two_homebrew_install ) 
+
+- name: Download Python 3
+  get_url:
+    url: "{{ python_three_download_url }}"
+    dest: "{{ python_three_download_dir }}/{{ python_three_download_filename }}.{{ python_three_download_filetype }}"
+    checksum: "{{ python_three_checksum_format }}:{{ python_three_checksum_value }}"
+    mode: "u+rwx"
+  when: (pythonThreeInstalled.rc != 0 and not python_three_homebrew_install ) 
+   
+- name: Install Python 3
+  shell: |
+    installer -pkg "{{ python_three_download_dir }}/{{ python_three_download_filename }}.{{ python_three_download_filetype }}" -target /Volumes/Macintosh\ HD
+  when: (pythonThreeInstalled.rc != 0 and not python_three_homebrew_install ) 
+  become: yes
+
+- name: Python 3 post install cleanup
+  file:
+    path: "{{ python_three_download_dir }}/{{ python_three_download_filename }}.{{ python_three_download_filetype }}"
+    state: absent 
+  when: (pythonThreeInstalled.rc != 0 and not python_three_homebrew_install ) 

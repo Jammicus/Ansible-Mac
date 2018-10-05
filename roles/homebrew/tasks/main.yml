@@ -8,6 +8,9 @@
   shell: echo | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   when: brewInstalled.rc != 0
 
+- name: Install homebrew caskrooms
+  shell: /usr/local/bin/brew tap caskroom/versions
+  when: brewInstalled.rc != 0
 
 - name: Prevent Homebrew from updating by updating ~/.bash_profile
   lineinfile:
