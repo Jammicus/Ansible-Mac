@@ -1,6 +1,43 @@
 ---
 
+- name: Check if wget is installed 
+  shell: source /etc/profile; command -v wget
+  register: wgetInstalled
+  ignore_errors: true
+
 - task: install wget 
   homebrew:
-    name: "{{ wget_version }}"
+    name: "{{ wget_homebrew_version }}"
     state: present
+  when: wget_homebrew_install
+
+- name: Download wget
+  get_url:
+    url: "{{ wget_download_url }}"
+    dest: "{{ wget_download_dir }}/{{ wget_download_filename }}.{{ wget_download_filetype }}"
+    checksum: "{{ wget_checksum_format }}:{{ wget_checksum_value }}"
+    mode: "u+rwx"
+  when: wgetInstalled.rc != 0 and not wget_homebrew_install
+
+- name: Extract wget
+  shell: |
+    cd {{ wget_download_dir }}
+    sudo tar -xzf {{ wget_download_filename }}.{{ wget_download_filetype }} 
+    rm -rf {{wget_download_filename}}.{{ wget_download_filetype }}
+  when: wgetInstalled.rc != 0 and not wget_homebrew_install
+
+- name: Build Wget
+  shell: |
+    source /etc/profile
+    cd {{ wget_download_dir }}/{{ wget_extracted_filename }} ;
+    sudo ./configure --prefix={{ wget_installation_dir }} --sysconfdir=/etc --with-ssl=/usr/bin/openSSL --disable-debug  ;
+    make install
+  become: yes  
+  when: wgetInstalled.rc != 0 and not wget_homebrew_install
+
+- name: Post Wget  Installation Cleanup
+  shell: |
+    cd {{ wget_download_dir }}
+    rm -rf {{ wget_extracted_filename }}
+  become: yes  
+  when: wgetInstalled.rc != 0 and not wget_homebrew_install

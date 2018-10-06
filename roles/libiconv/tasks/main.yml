@@ -22,14 +22,14 @@
     dest: "{{ libiconv_download_dir }}/{{ libiconv_download_filename }}.{{ libiconv_download_filetype }}"
     checksum: "{{ libiconv_checksum_format }}:{{ libiconv_checksum_value }}"
     mode: "u+rwx"
-  when: libiconvInstalled.rc != 0
+  when: libiconvInstalled.rc != 0 and not libiconv_homebrew_install
 
 - name: Extract Libiconv
   shell: |
     cd {{ libiconv_download_dir }}
     sudo tar -xzf {{ libiconv_download_filename }}.{{ libiconv_download_filetype }} 
     rm -rf {{libiconv_download_filename}}.{{ libiconv_download_filetype }}
-  when: libiconvInstalled.rc != 0 
+  when: libiconvInstalled.rc != 0 and not libiconv_homebrew_install
 
 - name: Build Libiconv
   shell: |
@@ -38,11 +38,11 @@
     make -f Makefile.devel
     make install
   become: yes  
-  when: libiconvInstalled.rc != 0
+  when: libiconvInstalled.rc != 0 and not libiconv_homebrew_install
 
 - name: Post Libiconv Installation Cleanup
   shell: |
     cd {{ libiconv_download_dir }}
     rm -rf {{ libiconv_extracted_filename }}
   become: yes  
-  when: libiconvInstalled.rc != 0
+  when: libiconvInstalled.rc != 0 and not libiconv_homebrew_install

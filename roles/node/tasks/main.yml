@@ -1,7 +1,7 @@
 ---
 
 - name: Check if NodeJS is installed 
-  shell: source ~/.bash_profile; command -v node
+  shell:  source /etc/profile; command -v node
   register: nodeInstalled
   ignore_errors: true
 

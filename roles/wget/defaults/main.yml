@@ -1,3 +1,13 @@
 ---
+wget_homebrew_install: false
+wget_homebrew_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/wget.rb
 
-wget_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/wget.rb
+wget_version: 1.19.5
+wget_checksum_format: sha256
+wget_checksum_value: "b39212abe1a73f2b28f4c6cb223c738559caac91d6e416a6d91d4b9d55c9faee"
+wget_download_filename: "wget-{{ wget_version }}"
+wget_download_filetype: "tar.gz"
+wget_extracted_filename: "wget-{{ wget_version }}"
+wget_download_url: "https://ftp.gnu.org/gnu/wget/wget-{{ wget_version }}.{{ wget_download_filetype }}"
+wget_download_dir: /Users/{{ inventory_hostname }}/Downloads
+wget_installation_dir: /usr/local
