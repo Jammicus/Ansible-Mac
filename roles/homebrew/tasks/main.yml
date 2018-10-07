@@ -9,7 +9,7 @@
   when: brewInstalled.rc != 0
 
 - name: Install homebrew caskrooms
-  shell: /usr/local/bin/brew tap caskroom/versions
+  shell: /usr/local/bin/brew tap caskroom/versions; /usr/local/bin/brew update
   when: brewInstalled.rc != 0
 
 - name: Prevent Homebrew from updating by updating ~/.bash_profile

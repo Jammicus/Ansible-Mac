@@ -1,5 +1,8 @@
 ---
 
+node_homebrew_install: false
+node_homebrew_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/3e1404a15758328bea61009c5d80c98b9269e0f7/Formula/node.rb 
+
 node_version: 8.12.0
 node_checksum_format: sha256
 node_checksum_value: "ca131b84dfcf2b6f653a6521d31f7a108ad7d83f4d7e781945b2eca8172064aa"

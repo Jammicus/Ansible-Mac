@@ -5,38 +5,44 @@
   register: nodeInstalled
   ignore_errors: true
 
+- task: install Node through homebrew 
+  homebrew:
+    name: "{{ node_homebrew_version }}"
+    state: present
+  when: node_homebrew_install  
+
 - name: Download NodeJs
   get_url:
     url: "{{ node_download_url }}"
     dest: "{{ node_download_dir }}/{{ node_download_filename }}.{{ node_download_filetype }}"
     checksum: "{{ node_checksum_format }}:{{ node_checksum_value }}"
     mode: "u+rwx"
-  when: nodeInstalled.rc != 0
+  when: nodeInstalled.rc != 0 and (not node_homebrew_install)
    
 - name: Extract NodeJs
   shell: |
     cd {{ node_download_dir }}
     sudo tar -xzf {{ node_download_filename }}.{{ node_download_filetype }} 
     rm -rf node-{{ node_version }}.{{ node_download_filetype }}
-  when: nodeInstalled.rc != 0
+  when: nodeInstalled.rc != 0 and (not node_homebrew_install)
 
 - name: Move NodeJs
   shell: |
     rm -rf {{ node_installation_dir }}/{{ node_download_filename }} | :
     mv {{ node_download_dir }}/{{ node_download_filename }} {{ node_installation_dir }}
   become: yes  
-  when: nodeInstalled.rc != 0
+  when: nodeInstalled.rc != 0 and (not node_homebrew_install)
 
 - name: Add NodeJs to ~/.bash_profile
   lineinfile:
     path: ~/.bash_profile
     line: 'export PATH=$PATH:{{ node_installation_dir }}/{{ node_download_filename }}/bin'
     create: yes 
-  when: nodeInstalled.rc != 0
+  when: nodeInstalled.rc != 0 and (not node_homebrew_install) 
 
 - name: Add NodeJs to ~/.bashrc
   lineinfile:
     path: ~/.bashrc
     line: 'export PATH=$PATH:{{ node_installation_dir }}/{{ node_download_filename }}/bin'
     create: yes  
-  when: nodeInstalled.rc != 0
+  when: nodeInstalled.rc != 0 and (not node_homebrew_install)

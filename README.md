@@ -29,7 +29,7 @@ The following needs to be installed on the host:
 | OpenSSL           | Binary                | Yes                 | openssl_homebrew_install: true                                      |
 | Packer            | Binary                | Yes                 | packer_homebrew_install: true                                       |
 | Pkgconfig         |                       |                     |                                                                     |
-| Postman           |                       |                     |                                                                     |
+| Postman           | Binary                | Yes                 | postman_homebrew_install: true                                      |
 | Python            | Binary (Both 2 and 3) | Yes                 | python_two_homebrew_install: true and python_three_homebrew_install |
 | Terraform         |                       |                     |                                                                     |
 | Ulimit            |                       |                     |                                                                     |

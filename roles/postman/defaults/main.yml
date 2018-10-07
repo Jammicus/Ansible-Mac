@@ -1,4 +1,8 @@
 ---
+postman_homebrew_install: false
+postman_homebrew_version: https://raw.githubusercontent.com/Homebrew/homebrew-cask/master/Casks/postman.rb
+
+
 # SHA and Download links here: https://www.getpostman.com/apps#changelog-mac-app
 postman_version: 6.3.0
 postman_checksum_format: sha1
