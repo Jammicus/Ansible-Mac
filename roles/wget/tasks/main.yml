@@ -23,14 +23,14 @@
   shell: |
     cd {{ wget_download_dir }}
     sudo tar -xzf {{ wget_download_filename }}.{{ wget_download_filetype }} 
-    rm -rf {{wget_download_filename}}.{{ wget_download_filetype }}
+    rm -rf {{ wget_download_filename }}.{{ wget_download_filetype }}
   when: wgetInstalled.rc != 0 and not wget_homebrew_install
 
 - name: Build Wget
   shell: |
     source /etc/profile
     cd {{ wget_download_dir }}/{{ wget_extracted_filename }} ;
-    sudo ./configure --prefix={{ wget_installation_dir }} --sysconfdir=/etc --with-ssl=/usr/bin/openSSL --disable-debug  ;
+    sudo ./configure --prefix={{ wget_prefix_dir }} --sysconfdir=/etc --with-ssl=/usr/bin/openSSL --disable-debug  ;
     make install
   become: yes  
   when: wgetInstalled.rc != 0 and not wget_homebrew_install

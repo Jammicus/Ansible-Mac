@@ -9,4 +9,4 @@ libiconv_download_filetype: "tar.gz"
 libiconv_extracted_filename: "libiconv-{{ libiconv_version }}"
 libiconv_download_url: "https://ftp.gnu.org/gnu/libiconv/libiconv-{{ libiconv_version }}.{{ libiconv_download_filetype }}"
 libiconv_download_dir: /Users/{{ inventory_hostname }}/Downloads
-libiconv_installation_dir: /usr/local
+libiconv_prefix_dir: /usr/local

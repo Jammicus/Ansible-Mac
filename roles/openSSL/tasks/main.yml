@@ -1,8 +1,63 @@
 ---
+
+- name: Check if openssl is installed 
+  shell: source /etc/profile && command -v openssl
+  register: opensslInstalled
+  ignore_errors: true
+
 - task: install openssl
   homebrew:
-    name: "{{ openssl_version }}"
+    name: "{{ openssl_homebrew_version }}"
     state: present
+  when: openssl_homebrew_install
+
+- task: Create homebrew Symlink
+  file:
+    src: /usr/bin/openssl
+    dest: /usr/local/ssl
+    state: link
+    force: yes
+  become: yes  
+  when: openssl_homebrew_symlink and openssl_homebrew_install
+
+- name: Download Openssl
+  get_url:
+    url: "{{ openssl_download_url }}"
+    dest: "{{ openssl_download_dir }}/{{ openssl_download_filename }}.{{ openssl_download_filetype }}"
+    checksum: "{{ openssl_checksum_format }}:{{ openssl_checksum_value }}"
+    mode: "u+rwx"
+  when: opensslInstalled.rc != 0 and not openssl_homebrew_install
+
+- name: Extract openssl
+  shell: |
+    cd {{ openssl_download_dir }}
+    sudo tar -xzf {{ openssl_download_filename }}.{{ openssl_download_filetype }} 
+    rm -rf {{ openssl_download_filename }}.{{ openssl_download_filetype }}
+  when: opensslInstalled.rc != 0 and not openssl_homebrew_install
+  
+  # Unsure of the implications of changing the make commands to: https://github.com/Homebrew/homebrew-php/issues/997#issuecomment-35051070
+- name: Build OpenSSL
+  vars: 
+      host_architecture: "{{ 'darwin64-x86_64-cc enable-ec_nistp_64_gcc_128' if ( ansible_architecture == 'x86_64' ) else 'darwin-i386-cc' }}"
+  shell: |
+    source /etc/profile
+    cd {{ openssl_download_dir }}/{{ openssl_extracted_filename }} ;
+    perl ./configure --prefix={{ openssl_prefix_dir }} --openssldir={{ openssl_certs_dir }} no-ssl2 no-ssl3 no-zlib no-comp -shared enable-cms {{ host_architecture }} ;
+    make depend
+    make -stdlib=libstdc++ -lstdc++
+    make install -stdlib=libstdc++ -lstdc++
+    make test -stdlib=libstdc++ -lstdc++
+    make install_docs MANDIR=/usr/share/man MANSUFFIX=ssl -stdlib=libstdc++ -lstdc++
+  become: yes  
+  when: opensslInstalled.rc != 0 and not openssl_homebrew_install
+
+- name: Post OpenSSL Installation Cleanup
+  shell: |
+    cd {{ openssl_download_dir }}
+    rm -rf {{ openssl_extracted_filename }}
+  become: yes  
+  when: opensslInstalled.rc != 0 and not openssl_homebrew_install
+
 
 - task: Create Symlink
   file:
@@ -11,4 +66,4 @@
     state: link
     force: yes
   become: yes  
-  when: openssl_symlink
+  when: openssl_symlink and opensslInstalled.rc != 0 and not openssl_homebrew_install

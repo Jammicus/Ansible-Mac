@@ -1,3 +1,16 @@
 ---
-openssl_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/openssl.rb
+openssl_homebrew_install: false
+openssl_homebrew_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/openssl.rb
+openssl_homebrew_symlink: true
+
+openssl_version: 1.0.2p
+openssl_checksum_format: sha256
+openssl_checksum_value: "50a98e07b1a89eb8f6a99477f262df71c6fa7bef77df4dc83025a2845c827d00"
+openssl_download_filename: "openssl-{{ openssl_version }}"
+openssl_download_filetype: "tar.gz"
+openssl_extracted_filename: "openssl-{{ openssl_version }}"
+openssl_download_url: "https://www.openssl.org/source/{{ openssl_download_filename }}.{{ openssl_download_filetype }}"
+openssl_download_dir: /Users/{{ inventory_hostname }}/Downloads
+openssl_prefix_dir: /usr/local
+openssl_certs_dir: /etc/openssl
 openssl_symlink: true

@@ -10,4 +10,4 @@ wget_download_filetype: "tar.gz"
 wget_extracted_filename: "wget-{{ wget_version }}"
 wget_download_url: "https://ftp.gnu.org/gnu/wget/wget-{{ wget_version }}.{{ wget_download_filetype }}"
 wget_download_dir: /Users/{{ inventory_hostname }}/Downloads
-wget_installation_dir: /usr/local
+wget_prefix_dir: /usr/local
