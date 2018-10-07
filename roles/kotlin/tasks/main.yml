@@ -4,37 +4,43 @@
   register: kotlinInstalled
   ignore_errors: true
 
+- name: Install Kotlin  
+  homebrew:
+    name: "{{ kotlin_homebrew_version }}"
+    state: present
+  when: kotlin_homebrew_install
+
 - name: Download Kotlin
   get_url:
     url: "{{ kotlin_download_url }}"
     dest: "{{ kotlin_download_dir }}"
     mode: "u+rwx"
-  when: kotlinInstalled.rc != 0
+  when: kotlinInstalled.rc != 0 and (not kotlin_homebrew_install)
    
 - name: Extract Kotlin
   shell: |
     cd {{ kotlin_download_dir }}
     sudo unzip {{ kotlin_download_filename }}.{{ kotlin_download_filetype }} 
     rm -rf {{ kotlin_download_filename }}.{{ kotlin_download_filetype }} 
-  when: kotlinInstalled.rc != 0
+  when: kotlinInstalled.rc != 0 and (not kotlin_homebrew_install)
 
 - name: Move Kotlin
   shell: |
     rm -rf {{ kotlin_installation_dir }}/{{ kotlin_extracted_filename }} | :
     mv {{ kotlin_download_dir }}/{{ kotlin_extracted_filename }} {{ kotlin_installation_dir }}
   become: yes  
-  when: kotlinInstalled.rc != 0
+  when: kotlinInstalled.rc != 0 and (not kotlin_homebrew_install)
 
 - name: Add Kotlin to ~/.bash_profile
   lineinfile:
     path: ~/.bash_profile
     line: 'export PATH=$PATH:{{ kotlin_installation_dir }}/{{ kotlin_extracted_filename }}/bin'
     create: yes 
-  when: kotlinInstalled.rc != 0
+  when: kotlinInstalled.rc != 0 and (not kotlin_homebrew_install)
 
 - name: Add Kotlin to ~/.bashrc
   lineinfile:
     path: ~/.bashrc
     line: 'export PATH=$PATH:{{ kotlin_installation_dir }}/{{ kotlin_extracted_filename }}/bin'
     create: yes 
-  when: kotlinInstalled.rc != 0
+  when: kotlinInstalled.rc != 0 and (not kotlin_homebrew_install)

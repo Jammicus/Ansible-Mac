@@ -14,19 +14,20 @@ The following needs to be installed on the host:
 | ----------------- | --------------------- | ------------------- | ------------------------------------------------------------------- |
 | Ansible           | Pip                   | No                  |                                                                     |  
 | CommandLineTools  | Content Cell          |                     |                                                                     | 
-| Doxygen           |                       |                     |                                                                     |
+| CMake             | Binary                | Yes                 | cmake_homebrew_install: true                                        |
+| Doxygen           | Binary                | Yes                 | doxygen_homebrew_install: true                                      |
 | Gawk              |                       |                     |                                                                     |
 | Gnu-sed           |                       |                     |                                                                     |
 | Gnu-tar           |                       |                     |                                                                     |
 | Gradle            |                       |                     |                                                                     |
-| Homebrew          |                       |                     |                                                                     |
+| Homebrew          | Binary                | No                  |                                                                     |
 | Java              |                       |                     |                                                                     |
-| Kotlin            |                       |                     |                                                                     |
+| Kotlin            | Binary                | Yes                 | kotlin_homebrew_install: true                                       |
 | Libiconv          |                       |                     |                                                                     |
-| Maven             | Binary                | yes                 | maven_homebrew_install: true                                        |
+| Maven             | Binary                | Yes                 | maven_homebrew_install: true                                        |
 | NodeJs            |                       |                     |                                                                     |
-| OpenSSL           |                       |                     |                                                                     |
-| Packer            |                       |                     |                                                                     |
+| OpenSSL           | Binary                | Yes                 | openssl_homebrew_install: true                                      |
+| Packer            | Binary                | Yes                 | packer_homebrew_install: true                                       |
 | Pkgconfig         |                       |                     |                                                                     |
 | Postman           |                       |                     |                                                                     |
 | Python            | Binary (Both 2 and 3) | Yes                 | python_two_homebrew_install: true and python_three_homebrew_install |
@@ -34,7 +35,7 @@ The following needs to be installed on the host:
 | Ulimit            |                       |                     |                                                                     |
 | VisualStudioCode  |                       |                     |                                                                     |
 | Wget              |                       |                     |                                                                     |
-| Yarn              |                       |                     |                                                                     |
+| Yarn              | Binary                | Yes                 | yarn_homebrew_install: true                                         |
 
 ## Running
 

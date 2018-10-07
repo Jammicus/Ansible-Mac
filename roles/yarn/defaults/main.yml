@@ -1,3 +1,6 @@
+yarn_homebrew_install: false
+yarn_homebrew_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/yarn.rb
+
 yarn_version: 1.10.0
 yarn_download_filename: "yarn-v{{ yarn_version }}"
 yarn_download_filetype: "tar.gz"

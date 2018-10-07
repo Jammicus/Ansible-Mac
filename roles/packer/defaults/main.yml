@@ -1,4 +1,8 @@
 ---
+
+packer_homebrew_install: false
+packer_homebrew_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/packer.rb
+
 # https://releases.hashicorp.com/packer/
 # https://releases.hashicorp.com/packer/1.3.1/packer_1.3.1_darwin_386.zip
 packer_version: 1.3.1

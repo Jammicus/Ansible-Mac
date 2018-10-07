@@ -1,0 +1,45 @@
+---
+
+- name: Check if CMake is installed 
+  shell: source /etc/profile; command -v cmake
+  register: cmakeInstalled
+  ignore_errors: true
+
+- task: install CMake
+  homebrew:
+    name: "{{ cmake_homebrew_version }}"
+    state: present
+  when: cmake_homebrew_install  
+
+- task: Download Cmake
+  get_url:
+    url: "{{ cmake_download_url }}"
+    dest: "{{ cmake_download_dir }}/{{ cmake_download_filename }}.{{ cmake_download_filetype }}"
+    checksum: "{{ cmake_checksum_format }}:{{ cmake_checksum_value }}"
+    mode: "u+rwx"
+  when: cmakeInstalled.rc != 0 and (not cmake_homebrew_install)
+
+- task: Extract Cmake
+  shell: |
+    cd {{ cmake_download_dir }}
+    sudo tar -xzf {{ cmake_download_filename }}.{{ cmake_download_filetype }} 
+    rm -rf {{ cmake_download_filename}}.{{ cmake_download_filetype }}
+  when: cmakeInstalled.rc != 0 and (not cmake_homebrew_install)  
+
+# Note: datadir, docdir and mandir append to the prefix directory
+- name: Build Cmake
+  shell: |
+    cd {{ cmake_download_dir }}/{{ cmake_extracted_filename }}
+    ./bootstrap --prefix="{{ cmake_prefix_dir }}" --no-system-libs --parallel="{{ ansible_processor_vcpus }}" --datadir=/share/cmake  --docdir=/share/cmake --mandir=/share/man --system-zlib --system-bzip2 -- -DCMAKE_BUILD_TYPE=Release
+    make 
+    make install
+  become: yes  
+  gather_facts: true
+  when: cmakeInstalled.rc != 0 and (not cmake_homebrew_install)  
+
+- name: Post Cmake Installation Cleanup
+  shell: |
+    cd {{ cmake_download_dir }}
+    rm -rf {{ cmake_extracted_filename }}
+  become: yes  
+  when: cmakeInstalled.rc != 0 and (not cmake_homebrew_install)  

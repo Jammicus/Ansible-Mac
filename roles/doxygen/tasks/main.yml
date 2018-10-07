@@ -1,5 +1,44 @@
 ---
+- name: Check if Doxygen is installed 
+  shell: source /etc/profile; command -v doxygen
+  register: doxygenInstalled
+  ignore_errors: true
+
 - task: install doxygen
   homebrew:
-    name: "{{ doxygen_version }}"
+    name: "{{ doxygen_homebrew_version }}"
     state: present
+  when: doxygen_homebrew_install  
+
+- task: Download Doxygen
+  get_url:
+    url: "{{ doxygen_download_url }}"
+    dest: "{{ doxygen_download_dir }}/{{ doxygen_download_filename }}.{{ doxygen_download_filetype }}"
+    checksum: "{{ doxygen_checksum_format }}:{{ doxygen_checksum_value }}"
+    mode: "u+rwx"
+  when: doxygenInstalled.rc != 0 and (not doxygen_homebrew_install)
+
+- task: Extract Doxygen
+  shell: |
+    cd {{ doxygen_download_dir }}
+    sudo tar -xzf {{ doxygen_download_filename }}.{{ doxygen_download_filetype }} 
+    rm -rf {{ doxygen_download_filename}}.{{ doxygen_download_filetype }}
+  when: doxygenInstalled.rc != 0 and (not doxygen_homebrew_install)
+
+- name: Build Doxygen
+  shell: |
+    source /etc/profile
+    cd {{ doxygen_download_dir }}/{{ doxygen_extracted_filename }}
+    mkdir build
+    cd build 
+    cmake -G "Unix Makefiles" .. -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING="{{ ansible_distribution_version }}"
+    make install 
+  become: yes  
+  when: doxygenInstalled.rc != 0 and (not doxygen_homebrew_install)
+
+- name: Post Doxygen Installation Cleanup
+  shell: |
+    cd {{ doxygen_download_dir }}
+    rm -rf {{ doxygen_extracted_filename }}
+  become: yes  
+  when: doxygenInstalled.rc != 0 and (not doxygen_homebrew_install)  

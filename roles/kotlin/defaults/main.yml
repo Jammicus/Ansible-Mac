@@ -1,5 +1,8 @@
 ---
 
+kotlin_homebrew_install: false
+kotlin_homebrew_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/kotlin.rb
+
 kotlin_version: 1.2.71
 kotlin_download_filename: "kotlin-compiler-{{ kotlin_version }}-macos-x64"
 kotlin_download_filetype: "zip"

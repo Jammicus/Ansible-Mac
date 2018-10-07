@@ -1,0 +1,13 @@
+cmake_homebrew_install: false
+cmake_homebrew_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/cmake.rb
+
+cmake_version: 3.12.3
+cmake_checksum_format: sha256
+cmake_checksum_value: acbf13af31a741794106b76e5d22448b004a66485fc99f6d7df4d22e99da164a
+cmake_download_filename: "cmake-{{ cmake_version }}"
+cmake_download_filetype: "tar.gz"
+cmake_extracted_filename: "cmake-{{ cmake_version }}"
+cmake_download_url: "https://cmake.org/files/v3.12/{{ cmake_download_filename }}.{{ cmake_download_filetype }}"
+cmake_download_dir: /Users/{{ inventory_hostname }}/Downloads
+cmake_prefix_dir: /usr/local
+

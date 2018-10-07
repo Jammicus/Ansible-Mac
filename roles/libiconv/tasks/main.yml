@@ -28,7 +28,7 @@
   shell: |
     cd {{ libiconv_download_dir }}
     sudo tar -xzf {{ libiconv_download_filename }}.{{ libiconv_download_filetype }} 
-    rm -rf {{libiconv_download_filename}}.{{ libiconv_download_filetype }}
+    rm -rf {{ libiconv_download_filename}}.{{ libiconv_download_filetype }}
   when: libiconvInstalled.rc != 0 and (not libiconv_homebrew_install)
 
 - name: Build Libiconv
