@@ -12,29 +12,30 @@ The following needs to be installed on the host:
 
 | Playbook          | Default Install method| Brew Install option | Brew Install Override                                               |
 | ----------------- | --------------------- | ------------------- | ------------------------------------------------------------------- |
-| Ansible           | Pip                   | No                  |                                                                     |  
+| Ansible           | Pip                   | No                  | -                                                                   |  
 | CommandLineTools  | Content Cell          |                     |                                                                     | 
 | CMake             | Binary                | Yes                 | cmake_homebrew_install: true                                        |
 | Doxygen           | Binary                | Yes                 | doxygen_homebrew_install: true                                      |
-| Gawk              |                       |                     |                                                                     |
-| Gnu-sed           |                       |                     |                                                                     |
-| Gnu-tar           |                       |                     |                                                                     |
-| Gradle            |                       |                     |                                                                     |
-| Homebrew          | Binary                | No                  |                                                                     |
-| Java              |                       |                     |                                                                     |
+| Gawk              | Homebrew              | No                  | -                                                                   |
+| Gnused            | Homebrew              | No                  | -                                                                   |
+| Gnutar            | Homebrew              | No                  | -                                                                   |
+| Gradle            | Binary                | No                  | -                                                                   |
+| Homebrew          | Binary                | No                  | -                                                                   |
+| Java              | Homebrew              | No                  | -                                                                   |
 | Kotlin            | Binary                | Yes                 | kotlin_homebrew_install: true                                       |
-| Libiconv          |                       |                     |                                                                     |
+| Libiconv          | Binary                | Yes                 | libiconv_homebrew_install: true                                     |
 | Maven             | Binary                | Yes                 | maven_homebrew_install: true                                        |
-| NodeJs            |                       |                     |                                                                     |
+| NodeJs            | Binary                | Yes                 | node_homebrew_install: true                                         |
 | OpenSSL           | Binary                | Yes                 | openssl_homebrew_install: true                                      |
 | Packer            | Binary                | Yes                 | packer_homebrew_install: true                                       |
-| Pkgconfig         |                       |                     |                                                                     |
+| Pkgconfig         | Homebrew              | -                   | -                                                                   |
 | Postman           | Binary                | Yes                 | postman_homebrew_install: true                                      |
 | Python            | Binary (Both 2 and 3) | Yes                 | python_two_homebrew_install: true and python_three_homebrew_install |
-| Terraform         |                       |                     |                                                                     |
-| Ulimit            |                       |                     |                                                                     |
-| VisualStudioCode  |                       |                     |                                                                     |
-| Wget              |                       |                     |                                                                     |
+| Terraform         | Binary                | Yes                 | terraform_homebrew_install                                          |
+| Ulimit            | -                     | -                   | -                                                                   |
+| Users             | -                     | -                   | -                                                                   |
+| VisualStudioCode  | Binary                | Yes                 | vscode_homebrew_install: true                                       |
+| Wget              | Binary                | Yes                 | wget_homebrew_install: true                                         |
 | Yarn              | Binary                | Yes                 | yarn_homebrew_install: true                                         |
 
 ## Running
