@@ -1,9 +1,6 @@
 ---
-# SHA and Download links here: https://www.getpostman.com/apps#changelog-mac-app
-
 maven_homebrew_install: false
-maven_version_homebrew: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/maven.rb
-
+maven_version_homebrew: https://raw.githubusercontent.com/Homebrew/homebrew-core/4c23c22dc71eadaeb7b25d6e6c10fd53bfc26976/Formula/maven.rb
 
 maven_version: 3.5.4
 maven_checksum_format: sha512
@@ -12,6 +9,6 @@ maven_download_filename: "apache-maven-{{ maven_version }}-bin"
 maven_download_filetype: "tar.gz"
 maven_extracted_filename: "apache-maven-{{ maven_version }}"
 maven_download_url: "http://apache.mirror.anlx.net/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz"
-maven_download_dir: /Users/{{ inventory_hostname }}/Downloads
+maven_download_dir: /Users/{{ default_user }}/Downloads
 maven_installation_dir: /usr/local
 

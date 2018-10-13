@@ -5,13 +5,13 @@
   register: opensslInstalled
   ignore_errors: true
 
-- task: install openssl
+- name: install openssl
   homebrew:
     name: "{{ openssl_homebrew_version }}"
     state: present
   when: openssl_homebrew_install
 
-- task: Create homebrew Symlink
+- name: Create homebrew Symlink
   file:
     src: /usr/bin/openssl
     dest: /usr/local/ssl
@@ -59,7 +59,7 @@
   when: opensslInstalled.rc != 0 and not openssl_homebrew_install
 
 
-- task: Create Symlink
+- name: Create Symlink
   file:
     src: /usr/bin/openssl
     dest: /usr/local/ssl

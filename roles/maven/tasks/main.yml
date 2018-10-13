@@ -4,7 +4,7 @@
   register: mavenInstalled
   ignore_errors: true
 
-- task: install maven 
+- name: install maven 
   homebrew:
     name: "{{ maven_version_homebrew }}"
     state: present

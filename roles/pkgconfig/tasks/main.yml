@@ -1,5 +1,5 @@
 ---
-- task: install pkg-config 
+- name: install pkg-config 
   homebrew:
     name: "{{ pkgconfig_version }}"
     state: present

@@ -36,34 +36,36 @@ hostName="vagrant"
 		ansible.limit = "all"
 		ansible.verbose = "vv"
 		ansible.extra_vars = {
-			inventory_hostname: hostName
+			default_user: "vagrant"
 		}
 	end
 
-	# config.vm.provision "ansible" do |ansible|
-	# 	ansible.playbook = "./platform.yml"
-	# 	ansible.limit = "all"
-	# 	ansible.verbose = "vv"
-	# 	ansible.extra_vars = {
-	# 		inventory_hostname: hostName,
-	# 		gnused_symlink: true,
-	# 		gnutar_symlink: true,
-	# 		openssl_symlink: true,
-	# 		install_python_two: true,
-	# 		python_two_homebrew_install: true,
-	# 		python_three_homebrew_install: true,
-	# 		maven_homebrew_install: true,
-	# 		doxygen_homebrew_install: true,
-	# 		cmake_homebrew_install: true,
-	# 	}
-	# end
+	config.vm.provision "ansible" do |ansible|
+		ansible.playbook = "./platform.yml"
+		ansible.limit = "all"
+		ansible.verbose = "vv"
+		ansible.extra_vars = {
+			default_user: "vagrant",
+			gnused_symlink: true,
+			gnutar_symlink: true,
+			openssl_symlink: true,
+			install_python_two: true,
+			libiconv_homebrew_install: true,
+			wget_homebrew_install: true,
+			python_two_homebrew_install: true,
+			python_three_homebrew_install: true,
+			maven_homebrew_install: true,
+			doxygen_homebrew_install: true,
+			cmake_homebrew_install: true,
+		}
+	end
 
 	config.vm.provision "ansible" do |ansible|
 		ansible.playbook = "./frontend.yml"
 		ansible.limit = "all"
 		ansible.verbose = "vv"
 		ansible.extra_vars = {
-			inventory_hostname: hostName,
+			default_user: "vagrant",
 			yarn_homebrew_install: true,
 			postman_homebrew_install: true,
 			vscode_homebrew_install: true,
@@ -71,24 +73,23 @@ hostName="vagrant"
 		}
 	end
 
-	# config.vm.provision "ansible" do |ansible|
-	# 	ansible.playbook = "./devops.yml"
-	# 	ansible.limit = "all"
-	# 	ansible.verbose = "vv"
-	# 	ansible.extra_vars = {
-	# 		inventory_hostname: hostName,
-	# 		packer_homebrew_install: true
-	# 	}
-	# end
+	config.vm.provision "ansible" do |ansible|
+		ansible.playbook = "./devops.yml"
+		ansible.limit = "all"
+		ansible.verbose = "vv"
+		ansible.extra_vars = {
+			default_user: "vagrant",
+			packer_homebrew_install: true
+		}
+	end
 
-	# config.vm.provision "ansible" do |ansible|
-	# 	ansible.playbook = "./backend.yml"
-	# 	ansible.limit = "all"
-	# 	ansible.verbose = "vv"
-	# 	ansible.extra_vars = {
-	# 		inventory_hostname: hostName,
-	# 		kotlin_homebrew_install: true
-
-	# 	}
-	# end
+	config.vm.provision "ansible" do |ansible|
+		ansible.playbook = "./backend.yml"
+		ansible.limit = "all"
+		ansible.verbose = "vv"
+		ansible.extra_vars = {
+			default_user: "vagrant",
+			kotlin_homebrew_install: true
+		}
+	end
 end

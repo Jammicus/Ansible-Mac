@@ -1,17 +1,16 @@
 ---
-
 - name: Check if CMake is installed 
   shell: source /etc/profile; command -v cmake
   register: cmakeInstalled
   ignore_errors: true
 
-- task: install CMake
+- name: install CMake
   homebrew:
     name: "{{ cmake_homebrew_version }}"
     state: present
   when: cmake_homebrew_install  
 
-- task: Download Cmake
+- name: Download Cmake
   get_url:
     url: "{{ cmake_download_url }}"
     dest: "{{ cmake_download_dir }}/{{ cmake_download_filename }}.{{ cmake_download_filetype }}"
@@ -19,7 +18,7 @@
     mode: "u+rwx"
   when: cmakeInstalled.rc != 0 and (not cmake_homebrew_install)
 
-- task: Extract Cmake
+- name: Extract Cmake
   shell: |
     cd {{ cmake_download_dir }}
     sudo tar -xzf {{ cmake_download_filename }}.{{ cmake_download_filetype }} 
@@ -34,7 +33,6 @@
     make 
     make install
   become: yes  
-  gather_facts: true
   when: cmakeInstalled.rc != 0 and (not cmake_homebrew_install)  
 
 - name: Post Cmake Installation Cleanup

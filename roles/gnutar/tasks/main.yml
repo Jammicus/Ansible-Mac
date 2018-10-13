@@ -1,5 +1,5 @@
 ---
-- task: install gnu-tar
+- name: install gnu-tar
   homebrew:
     name: "{{ gnutar_version }}"
     state: present
@@ -12,7 +12,7 @@
   become: yes
   when: gnutar_symlink
 
-- task: Create Symlink
+- name: Create Symlink
   file:
     src: /usr/local/bin/gtar
     dest: /opt/local/bin/gtar

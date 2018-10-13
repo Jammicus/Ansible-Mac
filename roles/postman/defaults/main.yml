@@ -10,7 +10,7 @@ postman_checksum_value: "E1BC127C804BCEA24728F5C4AA5CBE0E48297972"
 postman_download_filename: "Postman-osx-{{ postman_version }}"
 postman_download_filetype: "zip"
 postman_download_url: "https://dl.pstmn.io/download/version/{{ postman_version }}/osx64"
-postman_download_dir: /Users/{{ inventory_hostname }}/Downloads
+postman_download_dir: /Users/{{ default_user }}/Downloads
 postman_installation_dir: /Applications
 postman_unarchive_filename: 'Postman'
 postman_unarchive_filetype: "app"

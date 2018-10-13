@@ -5,7 +5,7 @@
   register: nodeInstalled
   ignore_errors: true
 
-- task: install Node through homebrew 
+- name: install Node through homebrew 
   homebrew:
     name: "{{ node_homebrew_version }}"
     state: present

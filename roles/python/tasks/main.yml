@@ -9,13 +9,13 @@
   register: pythonThreeInstalled
   ignore_errors: true  
 
-- task: install Python3 
+- name: install Python3 
   homebrew:
     name: "{{ python_three_version_homebrew }}"
     state: present
   when: python_three_homebrew_install
 
-- task: install Python2 
+- name: install Python2 
   homebrew:
     name: "{{ python_two_version_homebrew }}"
     state: present    

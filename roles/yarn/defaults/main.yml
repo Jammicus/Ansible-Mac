@@ -5,6 +5,6 @@ yarn_version: 1.10.0
 yarn_download_filename: "yarn-v{{ yarn_version }}"
 yarn_download_filetype: "tar.gz"
 yarn_download_url: "https://github.com/yarnpkg/yarn/releases/download/v{{ yarn_version }}/{{ yarn_download_filename }}.{{ yarn_download_filetype }}"
-yarn_download_dir: /Users/{{ inventory_hostname }}/Downloads
+yarn_download_dir: /Users/{{ default_user }}/Downloads
 yarn_installation_dir: /usr/local
 

@@ -2,8 +2,8 @@
 - name: Install Platform packages
   hosts: all
   roles:
+    - users
     - wget
-    - cmake
     - openssl
     - gnused
     - gnutar
@@ -14,3 +14,4 @@
     - maven
     - python
     - ulimit
+    - perforce

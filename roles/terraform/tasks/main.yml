@@ -5,19 +5,25 @@
   register: terraformInstalled
   ignore_errors: true
 
+- name: Install Terraform through homebrew 
+  homebrew:
+    name: "{{ terraform_homebrew_version }}"
+    state: present
+  when: terraform_homebrew_install 
+
 - name: Download terraform
   get_url:
     url: "{{ terraform_download_url }}.{{ terraform_download_filetype }}"
     dest: "{{ terraform_download_dir }}/{{ terraform_download_filename }}.{{ terraform_download_filetype }}"
     mode: "u+rwx"
-  when: terraformInstalled.rc != 0
+  when: terraformInstalled.rc != 0 and ( not terraform_homebrew_install )
    
 - name: Extract terraform
   shell: |
     cd {{ terraform_download_dir }}
     sudo unzip {{ terraform_download_filename }}.{{ terraform_download_filetype }} 
     rm -rf {{ terraform_download_filename }}.{{ terraform_download_filetype }}
-  when: terraformInstalled.rc != 0
+  when: terraformInstalled.rc != 0 and ( not terraform_homebrew_install )
 
 - name: Move terraform
   shell: |
@@ -25,7 +31,7 @@
     mv "{{ terraform_download_dir }}/{{ terraform_unarchive_filename }}" "{{ terraform_installation_dir }}/{{ terraform_unarchive_filename }}"
     chmod +rwx "{{ terraform_installation_dir }}/{{ terraform_unarchive_filename }}"
   become: yes  
-  when: terraformInstalled.rc != 0
+  when: terraformInstalled.rc != 0 and ( not terraform_homebrew_install )
 
 
 - name: Add terraform to ~/.bash_profile
@@ -33,11 +39,11 @@
     path: ~/.bash_profile
     line: 'export PATH="$PATH:{{ terraform_installation_dir }}/{{ terraform_unarchive_filename }}"'
     create: yes 
-  when: terraformInstalled.rc != 0
+  when: terraformInstalled.rc != 0 and ( not terraform_homebrew_install )
 
 - name: Add terraform to ~/.bashrc
   lineinfile:
     path: ~/.bashrc
     line: 'export PATH="$PATH:{{ terraform_installation_dir }}/{{ terraform_unarchive_filename }}"'
     create: yes  
-  when: terraformInstalled.rc != 0
+  when: terraformInstalled.rc != 0 and ( not terraform_homebrew_install )

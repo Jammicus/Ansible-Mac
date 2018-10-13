@@ -1,5 +1,5 @@
 doxygen_homebrew_install: false
-doxygen_homebrew_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/doxygen.rb
+doxygen_homebrew_version: https://raw.githubusercontent.com/Homebrew/homebrew-core/685e5c9ac1237d56aa877d8f0eca3f0132775ff5/Formula/doxygen.rb
 
 
 doxygen_version: 1.8.14
@@ -9,5 +9,5 @@ doxygen_download_filename: "doxygen-{{ doxygen_version }}.src"
 doxygen_download_filetype: "tar.gz"
 doxygen_extracted_filename: "doxygen-{{ doxygen_version }}"
 doxygen_download_url: "https://ftp.stack.nl/pub/users/dimitri/{{ doxygen_download_filename }}.{{ doxygen_download_filetype }}"
-doxygen_download_dir: /Users/{{ inventory_hostname }}/Downloads
+doxygen_download_dir: /Users/{{ default_user }}/Downloads
 doxygen_prefix_dir: /usr/local

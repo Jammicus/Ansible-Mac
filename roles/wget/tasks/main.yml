@@ -5,7 +5,7 @@
   register: wgetInstalled
   ignore_errors: true
 
-- task: install wget 
+- name: install wget 
   homebrew:
     name: "{{ wget_homebrew_version }}"
     state: present

@@ -5,13 +5,13 @@
   register: libiconvInstalled
   ignore_errors: true
 
-- task: install libiconv
+- name: install libiconv
   homebrew:
     name: "{{ libiconv_homebrew_version }}"
     state: present
   when: libiconv_homebrew_install
 
-- task: Link Libiconv
+- name: Link Libiconv
   shell: |
     /usr/local/bin/brew link --force libiconv 
   when: libiconv_homebrew_install

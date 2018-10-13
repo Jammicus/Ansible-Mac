@@ -1,5 +1,5 @@
 ---
-- task: install gawk
+- name: install gawk
   homebrew:
     name: "{{ gawk_version }}"
     state: present

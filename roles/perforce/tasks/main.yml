@@ -1,0 +1,22 @@
+---
+- name: Check if Perforce is installed 
+  shell: source /etc/profile; command -v p4
+  register: perforceInstalled
+  ignore_errors: true
+
+- name: Download Perforce
+  get_url:
+    url: "{{ perforce_download_url }}"
+    dest: "{{ perforce_download_dir }}/{{ perforce_download_filename }}"
+    mode: "u+rwx"
+  when: perforceInstalled.rc != 0 
+
+- name: Copy Perforce binary
+  copy:
+    src: "{{ perforce_download_dir }}/{{ perforce_unarchive_filename }}"
+    dest: "{{ perforce_installation_dir }}/{{ perforce_unarchive_filename }}"
+    mode: 0777
+    backup: yes
+    remote_src: yes
+  become: yes  
+  when: perforceInstalled.rc != 0

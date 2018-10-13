@@ -9,6 +9,6 @@ node_checksum_value: "ca131b84dfcf2b6f653a6521d31f7a108ad7d83f4d7e781945b2eca817
 node_download_filename: "node-v{{ node_version }}-darwin-x64"
 node_download_filetype: "tar.gz"
 node_download_url: "https://nodejs.org/dist/v{{ node_version }}/{{ node_download_filename }}.{{ node_download_filetype }}"
-node_download_dir: /Users/{{ inventory_hostname }}/Downloads
+node_download_dir: /Users/{{ default_user }}/Downloads
 node_installation_dir: /usr/local
 

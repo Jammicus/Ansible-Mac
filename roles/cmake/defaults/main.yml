@@ -8,6 +8,6 @@ cmake_download_filename: "cmake-{{ cmake_version }}"
 cmake_download_filetype: "tar.gz"
 cmake_extracted_filename: "cmake-{{ cmake_version }}"
 cmake_download_url: "https://cmake.org/files/v3.12/{{ cmake_download_filename }}.{{ cmake_download_filetype }}"
-cmake_download_dir: /Users/{{ inventory_hostname }}/Downloads
+cmake_download_dir: /Users/{{ default_user }}/Downloads
 cmake_prefix_dir: /usr/local
 

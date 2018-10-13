@@ -4,13 +4,13 @@
   register: doxygenInstalled
   ignore_errors: true
 
-- task: install doxygen
+- name: install doxygen
   homebrew:
     name: "{{ doxygen_homebrew_version }}"
     state: present
   when: doxygen_homebrew_install  
 
-- task: Download Doxygen
+- name: Download Doxygen
   get_url:
     url: "{{ doxygen_download_url }}"
     dest: "{{ doxygen_download_dir }}/{{ doxygen_download_filename }}.{{ doxygen_download_filetype }}"
@@ -18,7 +18,7 @@
     mode: "u+rwx"
   when: doxygenInstalled.rc != 0 and (not doxygen_homebrew_install)
 
-- task: Extract Doxygen
+- name: Extract Doxygen
   shell: |
     cd {{ doxygen_download_dir }}
     sudo tar -xzf {{ doxygen_download_filename }}.{{ doxygen_download_filetype }} 

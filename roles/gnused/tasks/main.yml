@@ -1,5 +1,5 @@
 ---
-- task: install gnu-sed
+- name: install gnu-sed
   homebrew:
     name: "{{ gnused_version }}"
     state: present
@@ -12,7 +12,7 @@
   become: yes
   when: gnused_symlink
 
-- task: Create Symlink
+- name: Create Symlink
   file:
     src: /usr/local/bin/gsed
     dest: /opt/local/bin/gsed

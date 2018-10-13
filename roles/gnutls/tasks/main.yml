@@ -1,5 +1,5 @@
 ---
-- task: install gnutls 
+- name: install gnutls 
   homebrew:
     name: "{{ gnutls_homebrew_version }}"
     state: present

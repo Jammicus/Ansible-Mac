@@ -1,6 +1,6 @@
 ---
 
-- task: install java 
+- name: install java 
   homebrew_cask:
     name: "java{{ java_major_version}}"
     state: present

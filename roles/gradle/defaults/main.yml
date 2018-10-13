@@ -6,6 +6,6 @@ gradle_download_filename: "gradle-{{ gradle_version }}-bin"
 gradle_download_filetype: "zip"
 gradle_extracted_filename: "gradle-{{ gradle_version }}"
 gradle_download_url: "https://services.gradle.org/distributions/gradle-{{ gradle_version }}-bin.zip"
-gradle_download_dir: /Users/{{ inventory_hostname }}/Downloads
+gradle_download_dir: /Users/{{ default_user }}/Downloads
 gradle_installation_dir: /usr/local
 

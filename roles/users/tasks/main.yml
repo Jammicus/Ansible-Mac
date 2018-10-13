@@ -1,0 +1,10 @@
+---
+
+- name: Add the tester user
+  user:
+    name: "{{ test_user_name }}"
+    password: "{{ test_user_password }}"
+    shell: /bin/bash
+    expires: -1
+  become: yes  
+  
