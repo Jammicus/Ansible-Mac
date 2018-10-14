@@ -29,12 +29,16 @@
   when: opensslInstalled.rc != 0 and not openssl_homebrew_install
 
 - name: Extract openssl
-  shell: |
-    cd {{ openssl_download_dir }}
-    sudo tar -xzf {{ openssl_download_filename }}.{{ openssl_download_filetype }} 
-    rm -rf {{ openssl_download_filename }}.{{ openssl_download_filetype }}
+  unarchive:
+    src: "{{ openssl_download_filename }}.{{ openssl_download_filetype }}"
+    dest: "{{ openssl_download_dir }}"
+    extra_opts: [--remove-files]
+    remote_src: yes
+  become: yes  
+  environment:
+      PATH: "{{ lookup('env', 'PATH') }}"
   when: opensslInstalled.rc != 0 and not openssl_homebrew_install
-  
+
   # Unsure of the implications of changing the make commands to: https://github.com/Homebrew/homebrew-php/issues/997#issuecomment-35051070
 - name: Build OpenSSL
   vars: 
@@ -57,7 +61,6 @@
     rm -rf {{ openssl_extracted_filename }}
   become: yes  
   when: opensslInstalled.rc != 0 and not openssl_homebrew_install
-
 
 - name: Create Symlink
   file:

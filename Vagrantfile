@@ -63,7 +63,7 @@ hostName="vagrant"
 	config.vm.provision "ansible" do |ansible|
 		ansible.playbook = "./frontend.yml"
 		ansible.limit = "all"
-		ansible.verbose = "vv"
+		ansible.verbose = "v"
 		ansible.extra_vars = {
 			default_user: "vagrant",
 			yarn_homebrew_install: true,

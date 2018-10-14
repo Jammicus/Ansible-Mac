@@ -10,28 +10,15 @@
     state: present
   when: packer_homebrew_install 
 
-- name: Download Packer
-  get_url:
-    url: "{{ packer_download_url }}.{{ packer_download_filetype }}"
-    dest: "{{ packer_download_dir }}/{{ packer_download_filename }}.{{ packer_download_filetype }}"
-    mode: "u+rwx"
+- name: Download, Extract and Move Packer
+  unarchive:
+    src: "{{ packer_download_url }}.{{ packer_download_filetype }}"
+    dest: "{{ packer_installation_dir }}"
+    remote_src: yes
+  become: yes    
+  environment:
+      PATH: "{{ lookup('env', 'PATH') }}"
   when: packerInstalled.rc != 0 and (not packer_homebrew_install)
-   
-- name: Extract Packer
-  shell: |
-    cd {{ packer_download_dir }}
-    sudo unzip {{ packer_download_filename }}.{{ packer_download_filetype }} 
-    rm -rf {{ packer_download_filename }}.{{ packer_download_filetype }}
-  when: packerInstalled.rc != 0 and (not packer_homebrew_install)
-
-- name: Move Packer
-  shell: |
-    rm -rf "{{ packer_installation_dir }}/{{ packer_unarchive_filename }}" | :
-    mv "{{ packer_download_dir }}/{{ packer_unarchive_filename }}" "{{ packer_installation_dir }}/{{ packer_unarchive_filename }}"
-    chmod +rwx "{{ packer_installation_dir }}/{{ packer_unarchive_filename }}"
-  become: yes  
-  when: packerInstalled.rc != 0 and (not packer_homebrew_install)
-
 
 - name: Add Packer to ~/.bash_profile
   lineinfile:

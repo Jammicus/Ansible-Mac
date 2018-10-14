@@ -11,19 +11,15 @@
     state: present
   when: wget_homebrew_install
 
-- name: Download wget
-  get_url:
-    url: "{{ wget_download_url }}"
-    dest: "{{ wget_download_dir }}/{{ wget_download_filename }}.{{ wget_download_filetype }}"
-    checksum: "{{ wget_checksum_format }}:{{ wget_checksum_value }}"
-    mode: "u+rwx"
-  when: wgetInstalled.rc != 0 and not wget_homebrew_install
-
-- name: Extract wget
-  shell: |
-    cd {{ wget_download_dir }}
-    sudo tar -xzf {{ wget_download_filename }}.{{ wget_download_filetype }} 
-    rm -rf {{ wget_download_filename }}.{{ wget_download_filetype }}
+- name: Download and Extract WGet
+  unarchive:
+    src: "{{ wget_download_url }}"
+    dest: "{{ wget_download_dir }}"
+    extra_opts: [--remove-files]
+    remote_src: yes
+  become: yes  
+  environment:
+      PATH: "{{ lookup('env', 'PATH') }}"
   when: wgetInstalled.rc != 0 and not wget_homebrew_install
 
 - name: Build Wget

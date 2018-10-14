@@ -19,10 +19,13 @@
   when: cmakeInstalled.rc != 0 and (not cmake_homebrew_install)
 
 - name: Extract Cmake
-  shell: |
-    cd {{ cmake_download_dir }}
-    sudo tar -xzf {{ cmake_download_filename }}.{{ cmake_download_filetype }} 
-    rm -rf {{ cmake_download_filename}}.{{ cmake_download_filetype }}
+  unarchive:
+    src: "{{ cmake_download_dir }}/{{ cmake_download_filename }}.{{ cmake_download_filetype }}"
+    dest: "{{ cmake_download_dir }}"
+    extra_opts: [--remove-files]
+    remote_src: yes
+  environment:
+      PATH: "{{ lookup('env', 'PATH') }}"
   when: cmakeInstalled.rc != 0 and (not cmake_homebrew_install)  
 
 # Note: datadir, docdir and mandir append to the prefix directory

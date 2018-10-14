@@ -10,25 +10,15 @@
     state: present
   when: yarn_homebrew_install 
 
-- name: Download Yarn
-  get_url:
-    url: "{{ yarn_download_url }}"
-    dest: "{{ yarn_download_dir }}/{{ yarn_download_filename }}.{{ yarn_download_filetype }}"
-    mode: "u+rwx"
-  when: yarnInstalled.rc != 0 and (not yarn_homebrew_install)
-   
-- name: Extract Yarn
-  shell: |
-    cd {{ yarn_download_dir }}
-    sudo tar -xzf {{ yarn_download_filename }}.{{ yarn_download_filetype }} 
-    rm -rf yarn-{{ yarn_version }}.{{ yarn_download_filetype }}
-  when: yarnInstalled.rc != 0 and (not yarn_homebrew_install)
-
-- name: Move Yarn
-  shell: |
-    rm -rf {{ yarn_installation_dir }}/{{ yarn_download_filename }} | :
-    mv {{ yarn_download_dir }}/{{ yarn_download_filename }} {{ yarn_installation_dir }}
+- name: Download,Extract and Move Yarn
+  unarchive:
+    src: "{{ yarn_download_url }}"
+    dest: "{{ yarn_installation_dir }}"
+    extra_opts: [--remove-files]
+    remote_src: yes
   become: yes  
+  environment:
+      PATH: "{{ lookup('env', 'PATH') }}"
   when: yarnInstalled.rc != 0 and (not yarn_homebrew_install)
 
 - name: Add Yarn to ~/.bash_profile

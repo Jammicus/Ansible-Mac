@@ -19,10 +19,14 @@
   when: doxygenInstalled.rc != 0 and (not doxygen_homebrew_install)
 
 - name: Extract Doxygen
-  shell: |
-    cd {{ doxygen_download_dir }}
-    sudo tar -xzf {{ doxygen_download_filename }}.{{ doxygen_download_filetype }} 
-    rm -rf {{ doxygen_download_filename}}.{{ doxygen_download_filetype }}
+  unarchive:
+    src: "{{ doxygen_download_dir }}/{{ doxygen_download_filename }}.{{ doxygen_download_filetype }}"
+    dest: "{{ doxygen_download_dir }}"
+    extra_opts: [--remove-files]
+    remote_src: yes
+  become: yes    
+  environment:
+      PATH: "{{ lookup('env', 'PATH') }}"
   when: doxygenInstalled.rc != 0 and (not doxygen_homebrew_install)
 
 - name: Build Doxygen

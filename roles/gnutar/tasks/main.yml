@@ -20,3 +20,16 @@
     force: yes
   become: yes
   when: gnutar_symlink
+
+# This to ensure that the unarchive module works correctly.
+- name: Add gnutar to ~/.bash_profile
+  lineinfile:
+    path: ~/.bash_profile
+    line: 'export PATH=/usr/local/bin/gtar/libexec/gnubin:$PATH'
+    create: yes 
+
+- name: Add gnutar to ~/.bashrc
+  lineinfile:
+    path: ~/.bashrc
+    line: 'export PATH=:/usr/local/bin/gtar/libexec/gnubin:$PATH'
+    create: yes 

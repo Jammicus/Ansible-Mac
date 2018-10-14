@@ -18,18 +18,15 @@
     mode: "u+rwx"
   when: mavenInstalled.rc != 0 and not maven_homebrew_install
    
-- name: Extract Maven
-  shell: |
-    cd {{ maven_download_dir }}
-    sudo tar -xzf {{ maven_download_filename }}.{{ maven_download_filetype }} 
-    rm -rf {{ maven_download_filename }}.{{ maven_download_filetype }} 
-  when: mavenInstalled.rc != 0 and not maven_homebrew_install
-
-- name: Move Maven
-  shell: |
-    rm -rf {{ maven_installation_dir }}/{{ maven_extracted_filename }} | :
-    mv {{ maven_download_dir }}/{{ maven_extracted_filename }} {{ maven_installation_dir }}
+- name: Extract and Move Maven
+  unarchive:
+    src: "{{ maven_download_dir }}/{{ maven_download_filename }}.{{ maven_download_filetype }}"
+    dest: "{{ maven_installation_dir }}"
+    extra_opts: [--remove-files]
+    remote_src: yes
   become: yes  
+  environment:
+      PATH: "{{ lookup('env', 'PATH') }}"
   when: mavenInstalled.rc != 0 and not maven_homebrew_install
 
 - name: Add Maven to ~/.bash_profile

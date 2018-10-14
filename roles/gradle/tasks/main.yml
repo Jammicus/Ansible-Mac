@@ -12,18 +12,14 @@
     mode: "u+rwx"
   when: gradleInstalled.rc != 0
    
-- name: Extract Gradle
-  shell: |
-    cd {{ gradle_download_dir }}
-    sudo unzip {{ gradle_download_filename }}.{{ gradle_download_filetype }} 
-    rm -rf {{ gradle_download_filename }}.{{ gradle_download_filetype }} 
-  when: gradleInstalled.rc != 0
-
-- name: Move Gradle
-  shell: |
-    rm -rf {{ gradle_installation_dir }}/{{ gradle_extracted_filename }} | :
-    mv {{ gradle_download_dir }}/{{ gradle_extracted_filename }} {{ gradle_installation_dir }}
-  become: yes  
+- name: Extract and Move Gradle
+  unarchive:
+    src: "{{ gradle_download_dir }}/{{ gradle_download_filename }}.{{ gradle_download_filetype }}"
+    dest: "{{ gradle_installation_dir }}"
+    remote_src: yes
+  become: yes    
+  environment:
+      PATH: "{{ lookup('env', 'PATH') }}"
   when: gradleInstalled.rc != 0
 
 - name: Add Gradle to ~/.bash_profile

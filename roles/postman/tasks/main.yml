@@ -11,24 +11,12 @@
     brew cask install "{{ postman_homebrew_version }}"
   when: postman_homebrew_install
 
-- name: Download Postman
-  get_url:
-    url: "{{ postman_download_url }}"
-    dest: "{{ postman_download_dir }}/{{ postman_download_filename }}.{{ postman_download_filetype }}"
-    mode: "u+rwx"
-    checksum: "{{ postman_checksum_format }}:{{ postman_checksum_value }}"
-  when: postmanInstalled.rc != 0 and (not postman_homebrew_install)
-   
-- name: Extract Postman
-  shell: |
-    cd {{ postman_download_dir }}
-    sudo unzip {{ postman_download_filename }}.{{ postman_download_filetype }} 
-    rm -rf {{ postman_download_filename }}.{{ postman_download_filetype }}
-  when: postmanInstalled.rc != 0 and (not postman_homebrew_install)
-
-- name: Move Postman
-  shell: |
-    rm -rf "{{ postman_installation_dir }}/{{ postman_unarchive_filename }}.{{ postman_unarchive_filetype }}"| :
-    mv "{{ postman_download_dir }}/{{ postman_unarchive_filename }}.{{ postman_unarchive_filetype }}" "{{ postman_installation_dir }}/{{ postman_unarchive_filename }}.{{ postman_unarchive_filetype }}"
-  become: yes  
+- name: Download, Extract and Move Postman
+  unarchive:
+    src: "{{ postman_download_url }}"
+    dest: "{{ postman_installation_dir }}"
+    remote_src: yes
+  become: yes    
+  environment:
+      PATH: "{{ lookup('env', 'PATH') }}"
   when: postmanInstalled.rc != 0 and (not postman_homebrew_install)

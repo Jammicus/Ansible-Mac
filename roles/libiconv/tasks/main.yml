@@ -25,10 +25,14 @@
   when: libiconvInstalled.rc != 0 and (not libiconv_homebrew_install)
 
 - name: Extract Libiconv
-  shell: |
-    cd {{ libiconv_download_dir }}
-    sudo tar -xzf {{ libiconv_download_filename }}.{{ libiconv_download_filetype }} 
-    rm -rf {{ libiconv_download_filename}}.{{ libiconv_download_filetype }}
+  unarchive:
+    src: "{{ libiconv_download_dir }}/{{ libiconv_download_filename }}.{{ libiconv_download_filetype }}"
+    dest: "{{ libiconv_download_dir }}"
+    extra_opts: [--remove-files]
+    remote_src: yes
+  become: yes    
+  environment:
+      PATH: "{{ lookup('env', 'PATH') }}"
   when: libiconvInstalled.rc != 0 and (not libiconv_homebrew_install)
 
 - name: Build Libiconv

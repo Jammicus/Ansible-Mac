@@ -13,7 +13,7 @@ The following needs to be installed on the host:
 | Playbook          | Default Install method| Brew Install option | Brew Install Override                                               |
 | ----------------- | --------------------- | ------------------- | ------------------------------------------------------------------- |
 | Ansible           | Pip                   | No                  | -                                                                   |  
-| CommandLineTools  | Content Cell          |                     |                                                                     | 
+| CommandLineTools  | Instal Script         | No                  | -                                                                    | 
 | CMake             | Binary                | Yes                 | cmake_homebrew_install: true                                        |
 | Doxygen           | Binary                | Yes                 | doxygen_homebrew_install: true                                      |
 | Gawk              | Homebrew              | No                  | -                                                                   |
@@ -59,7 +59,7 @@ vagrant destroy --force
 
 ## FAQ
 
-* I'm unable to update any of my homebrew packages -> Remove the following from your ~/.bashrc and ~/.bash_profile files:
+* I'm unable to update homebrew -> Remove the following from your ~/.bashrc and ~/.bash_profile files:
 
 ```
 export HOMEBREW_NO_AUTO_UPDATE=1
